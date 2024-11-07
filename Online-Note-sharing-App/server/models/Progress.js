@@ -19,7 +19,13 @@ const progressSchema = new Schema({
     default: 0
   }
 });
-
+progressSchema.virtual('percentageDone').get(function() {
+  
+    return this.courseId ? (this.assignmentsDone / this.courseId.assignments) * 100 : 0;
+  });
+  
+progressSchema.set('toJSON', { virtuals: true });
+progressSchema.set('toObject', { virtuals: true });
 const Progress = mongoose.model('Progress', progressSchema);
 
 module.exports = Progress;
