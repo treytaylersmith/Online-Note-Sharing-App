@@ -18,7 +18,7 @@ const courseSchema = new Schema({
   },
 
   assignments: {        //POSSIBLY CHANGE TO DATE OBJECT FOR CALENDAR INTERACTIVITY
-    type: Int,
+    type: Number,
     default: 0
   },
   notes: [{
@@ -26,6 +26,7 @@ const courseSchema = new Schema({
     ref: 'Note'
   }]
 });
+
 
 const Course = mongoose.model('Course', courseSchema);
 
