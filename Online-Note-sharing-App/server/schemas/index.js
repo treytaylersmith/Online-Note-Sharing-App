@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
+const typeDefs = require('./typeDefs');
+const resolvers = require('./resolvers');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/mern-shopping');
-
-module.exports = mongoose.connection;
+module.exports = { typeDefs, resolvers };
