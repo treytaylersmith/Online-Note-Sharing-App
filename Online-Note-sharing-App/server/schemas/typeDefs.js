@@ -11,15 +11,16 @@ const typeDefs = `
     _id: ID
     text: String!
     noteAuthor: String!
-    createdAt: String
+    createdAt: String!
 
   }
 
   type Course{
-    _id: ID
+    _id: ID!
     name: String!
-    times: String!
-    assignments: Int
+    startDate: String!
+    endDate: String!
+    assignments: Int!
     notes: [Note]
   }
   type Auth {
@@ -31,7 +32,7 @@ const typeDefs = `
     users: [User]
     user(username: String!): User
     notes(username: String): [Note]
-    note(noteId: ID!): Note
+    getNotesByCourse(courseId: ID!): [Note]
   }
 
   type Mutation {
@@ -52,6 +53,7 @@ const typeDefs = `
       courseId: ID!
       userId: ID!
     ): User
+    getNotesByCou
     
   }
 `;

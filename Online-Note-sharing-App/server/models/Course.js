@@ -7,10 +7,15 @@ const courseSchema = new Schema({
     type: String,
     required: true
   },
-  times: [{
-    type: String,
-    required: true,
-  }],
+  
+  startDate: {
+    type: Date,
+    required: true
+  },
+  endDate:{
+    type: Date,
+    required: true
+  },
 
   assignments: {        //POSSIBLY CHANGE TO DATE OBJECT FOR CALENDAR INTERACTIVITY
     type: Int,
