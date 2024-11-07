@@ -13,7 +13,7 @@ app.use(express.json()); // For parsing application/json
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes); // Add protected routes
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
