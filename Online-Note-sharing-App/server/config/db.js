@@ -1,14 +1,16 @@
-const mongoose = require('mongoose');
-const db = process.env.DB_URL; // Your MongoDB connection string
+const models = require('../models');
+const db = require('../config/connection');
 
-const connectDB = async () => {
+module.exports = async (modelName, collectionName) => {
   try {
-    await mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true });
-    console.log('MongoDB connected successfully');
-  } catch (error) {
-    console.error('MongoDB connection failed:', error);
-    process.exit(1);
-  }
-};
+    let modelExists = await models[modelName].db.db.listCollections({
+      name: collectionName
+    }).toArray()
 
-module.exports = connectDB;
+    if (modelExists.length) {
+      await db.dropCollection(collectionName);
+    }
+  } catch (err) {
+    throw err;
+  }
+}
