@@ -37,7 +37,7 @@ const typeDefs = `
 
   type Query {
     courses: [Course]
-    course: Course
+    course(_id: ID!): Course
     users: [User]
     user: User
     notes(username: String): [Note]
