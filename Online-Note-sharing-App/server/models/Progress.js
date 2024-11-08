@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const progressSchema = new Schema({
 
   courseId: {
-    type: Schema.Types.ObjectId,
+    type:{ Schema.Types.ObjectId},
     ref: 'Course',
     required: true
   },
