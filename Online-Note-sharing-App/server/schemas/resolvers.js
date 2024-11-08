@@ -21,6 +21,11 @@ const resolvers = {
 
       throw AuthenticationError;
     },
+    notes: async (parent, { username }, context) => {
+      
+        return await Note.find({ noteAuthor: username });
+      
+    },
     getNotesByCourse: async (parent, { courseId }) => {
       try {
         const course = await Course.findById(courseId).populate('notes');
