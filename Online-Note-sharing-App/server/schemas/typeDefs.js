@@ -15,6 +15,13 @@ const typeDefs = `
 
   }
 
+  type Progress{
+    _id: ID!
+    courseId: Course!
+    userId: User!
+    assignmentsDone: Int
+  }
+
   type Course{
     _id: ID!
     name: String!
@@ -29,10 +36,13 @@ const typeDefs = `
   }
 
   type Query {
+    courses: [Courses]
+    course: Course
     users: [User]
-    user(username: String!): User
+    user(user: User): User
     notes(username: String): [Note]
     getNotesByCourse(courseId: ID!): [Note]
+    progress: Progress
   }
 
   type Mutation {
@@ -49,11 +59,11 @@ const typeDefs = `
       text: String!
       noteAuthor: String!
     ): Course
-    enrollUser(
+    enrollUserProgress(
       courseId: ID!
       userId: ID!
     ): User
-    getNotesByCou
+    updateProgress(assignmentsDone: Int!)
     
   }
 `;

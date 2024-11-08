@@ -15,7 +15,7 @@ const progressSchema = new Schema({
     required: true
   },
   assignmentsDone: {
-    type: Int,
+    type: Number,
     default: 0
   }
 });
