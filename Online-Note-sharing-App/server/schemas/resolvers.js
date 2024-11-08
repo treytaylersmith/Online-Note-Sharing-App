@@ -1,4 +1,4 @@
-const {Course, Note, User} = require('../models');
+const {Course, Note, User, Progress} = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -8,6 +8,9 @@ const resolvers = {
     },
     course: async (parent, {_id}) =>{
       return await Course.findById(_id);
+    },
+    users: async() =>{
+      return await User.find();
     },
     user: async (parent, args, context) => {
       if (context.user) {
@@ -29,16 +32,62 @@ const resolvers = {
         throw new Error('Error fetching notes: ' + error.message);
       }
     },
-    getUserCourseProgress: async (parent, {courseId}, context) =>{
+    progress: async (parent, {_id}, context) =>{
+      if(context.user){
+        return await Progress.findById(_id);
+      }
+    }
+  },
+  Mutation: {
+    addUser: async (parent, args)=>{
+      const user = await User.create(args);
+      const token = signToken(user);
+      return { token, user };
+    },
+    updateUser: async (parent, args, context) => {
       if (context.user) {
-        const result = await Course.aggregate([])
-
-        return user;
+        return await User.findByIdAndUpdate(context.user._id, args, {
+          new: true,
+        });
       }
 
       throw AuthenticationError;
+    },
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw AuthenticationError;
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw AuthenticationError;
+      }
+
+      const token = signToken(user);
+
+      return { token, user };
+    },
+    addNote: async(parent, args)=>{
+      return await Note.create(args);
+    },
+    addCourse: async(parent, args)=>{
+      return await Course.create(args);
+    },
+    enrollUserProgress: async(parent, args)=>{
+      return await Progress.create(args);
+    },
+    updateProgress: async (parent, {_id, assignmentsDone})=>{
+      return await Progress.findByIdAndUpdate(
+        _id,
+        {$inc: {assignmentsDone: assignmentsDone}},
+        {new: true}
+      );
+
     }
-  },
+  }
   
 }
 
