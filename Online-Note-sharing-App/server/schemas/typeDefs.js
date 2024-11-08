@@ -36,10 +36,10 @@ const typeDefs = `
   }
 
   type Query {
-    courses: [Courses]
+    courses: [Course]
     course: Course
     users: [User]
-    user(user: User): User
+    user: User
     notes(username: String): [Note]
     getNotesByCourse(courseId: ID!): [Note]
     progress: Progress
@@ -51,20 +51,15 @@ const typeDefs = `
     addNote(text: String!, noteAuthor: String!): Note
     addCourse(
       name: String!
-      times String!
+      times: String!
       assignments: Int
-    )
-    addNote(
-      courseId:ID!
-      text: String!
-      noteAuthor: String!
     ): Course
     enrollUserProgress(
       courseId: ID!
       userId: ID!
     ): User
-    updateProgress(assignmentsDone: Int!)
-    
+    updateProgress(assignmentsDone: Int!): Progress
+    updateUser(username: String!, email:String!, password: String!): Auth
   }
 `;
 
