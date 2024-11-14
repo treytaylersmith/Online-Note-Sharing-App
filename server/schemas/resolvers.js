@@ -37,9 +37,10 @@ const resolvers = {
         throw new Error('Error fetching notes: ' + error.message);
       }
     },
-    progress: async (parent, {_id}, context) =>{
+    progressByUserAndCourse: async (parent, {userId, courseId}, context) =>{
       if(context.user){
-        return await Progress.findById(_id);
+        const progress = await Progress.findOne({ userId, courseId });
+        return progress ? progress.percentageDone : 0; // Return 0 if no progress found
       }
     }
   },
