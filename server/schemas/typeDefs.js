@@ -51,7 +51,7 @@ const typeDefs = `
     user: User
     notes(username: String): [Note]
     getNotesByCourse(courseId: ID!): [Note]
-    progressByUserAndCourse(userId: ID!, courseId: ID!): Int
+    progressByUserAndCourse(userId: ID!, courseId: ID!): Progress
 
   }
 

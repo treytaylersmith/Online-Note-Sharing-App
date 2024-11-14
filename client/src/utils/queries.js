@@ -1,8 +1,10 @@
 import {gql} from '@apollo/client';
 
 export const QUERY_ALL_COURSES = gql`
-query getCourses {
-  courses {
+query getCourses 
+{
+  courses 
+  {
     _id
     name
     assignments
@@ -13,13 +15,16 @@ query getCourses {
 `
 
 export const QUERY_COURSE = gql`
-query getCourse($id: ID!) {
-  course(_id: $id) {
+query getCourse($id: ID!) 
+{
+  course(_id: $id) 
+  {
     _id
     assignments
     endDate
     name
-    notes {
+    notes 
+    {
       _id
       createdAt
       noteAuthor
@@ -31,8 +36,10 @@ query getCourse($id: ID!) {
 `
 
 export const QUERY_COURSE_NOTES = gql`
-query getCourseNotes($courseId: ID!) {
-  getNotesByCourse(courseId: $courseId) {
+query getCourseNotes($courseId: ID!) 
+{
+  getNotesByCourse(courseId: $courseId) 
+  {
     _id
     text
     noteAuthor
@@ -42,16 +49,24 @@ query getCourseNotes($courseId: ID!) {
 `
 
 export const GET_PROGRESS = gql`
-  query GetProgress($userId: ID!, $courseId: ID!) {
-    progressByUserAndCourse(userId: $userId, courseId: $courseId)
+  query GetProgress($userId: ID!, $courseId: ID!) 
+  {
+    progressByUserAndCourse(userId: $userId, courseId: $courseId) {
+    percentageDone
+    _id
+    assignmentsDone
   }
+}
 `;
 
 export const QUERY_USER = gql`
-query getUser {
-  user {
+query getUser 
+{
+  user 
+  {
     _id
-    courses {
+    courses 
+    {
       _id
       assignments
       endDate
@@ -61,7 +76,8 @@ query getUser {
     email
     username
   }
-}`
+}
+  `
 
 export const QUERY_CATEGORIES = gql`
 query Categories {
@@ -73,13 +89,19 @@ query Categories {
 `
 
 export const QUERY_COURSE_BY_CATEGORY = gql`
-query Categories($category: ID!) {
+query Query($category: ID!) {
   coursesByCategory(category: $category) {
     _id
-    startDate
     assignments
     endDate
     name
+    startDate
+    notes {
+      _id
+      createdAt
+      noteAuthor
+      text
+    }
   }
 }
 `
