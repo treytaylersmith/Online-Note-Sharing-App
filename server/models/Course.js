@@ -24,7 +24,12 @@ const courseSchema = new Schema({
   notes: [{
     type: Schema.Types.ObjectId,
     ref: 'Note'
-  }]
+  }],
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
+    required: true
+  }
 });
 
 

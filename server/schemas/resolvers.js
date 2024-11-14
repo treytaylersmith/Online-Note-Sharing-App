@@ -1,8 +1,14 @@
-const {Course, Note, User, Progress} = require('../models');
+const {Course, Note, User, Progress, Category} = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query:{
+    categories: async () =>{
+      return await Category.find();
+    },
+    coursesByCategory: async (parent, {category})=>{
+      return await Course.find({category: category});
+    },
     courses: async ()=>{
       return await Course.find();
     },

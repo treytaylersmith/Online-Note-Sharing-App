@@ -31,19 +31,27 @@ const typeDefs = `
     assignments: Int!
     notes: [Note]
   }
+
+  type Category {
+    _id: ID
+    name: String
+  }
+
   type Auth {
     token: ID!
     user: User
   }
 
   type Query {
+    categories: [Category]
     courses: [Course]
+    coursesByCategory(category: ID!): [Course]
     course(_id: ID!): Course
     users: [User]
     user: User
     notes(username: String): [Note]
     getNotesByCourse(courseId: ID!): [Note]
-    progressByUserAndCourse(userId: ID!, courseId: ID!): Int
+    progressByUserAndCourse(userId: ID!, courseId: ID!): Progress
 
   }
 
