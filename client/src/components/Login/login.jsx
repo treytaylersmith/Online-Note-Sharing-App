@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import api from '../../../../server';
+import api from '../api';
 
-const Signup = () => {
+const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { data } = await api.post('/auth/signup', { email, password });
+        const { data } = await api.post('/auth/login', { email, password });
         localStorage.setItem('token', data.token);
     };
 
@@ -15,9 +15,9 @@ const Signup = () => {
         <form onSubmit={handleSubmit}>
             <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-            <button type="submit">Sign Up</button>
+            <button type="submit">Login</button>
         </form>
     );
 };
 
-export default Signup;
+export default Login;
