@@ -62,3 +62,24 @@ query getUser {
     username
   }
 }`
+
+export const QUERY_CATEGORIES = gql`
+query Categories {
+  categories {
+    name
+    _id
+  }
+}
+`
+
+export const QUERY_COURSE_BY_CATEGORY = gql`
+query Categories($category: ID!) {
+  coursesByCategory(category: $category) {
+    _id
+    startDate
+    assignments
+    endDate
+    name
+  }
+}
+`
