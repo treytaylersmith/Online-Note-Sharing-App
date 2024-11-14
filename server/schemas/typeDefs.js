@@ -20,6 +20,7 @@ const typeDefs = `
     courseId: Course!
     userId: User!
     assignmentsDone: Int
+    percentageDone: Int
   }
 
   type Course{
@@ -42,7 +43,8 @@ const typeDefs = `
     user: User
     notes(username: String): [Note]
     getNotesByCourse(courseId: ID!): [Note]
-    progress: Progress
+    progressByUserAndCourse(userId: ID!, courseId: ID!): Int
+
   }
 
   type Mutation {
@@ -51,7 +53,8 @@ const typeDefs = `
     addNote(text: String!, noteAuthor: String!): Note
     addCourse(
       name: String!
-      times: String!
+      startDate: String!
+      endDate: String!
       assignments: Int
     ): Course
     enrollUserProgress(

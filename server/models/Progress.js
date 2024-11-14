@@ -21,7 +21,7 @@ const progressSchema = new Schema({
 });
 progressSchema.virtual('percentageDone').get(function() {
   
-    return this.courseId ? (this.assignmentsDone / this.courseId.assignments) * 100 : 0;
+    return this.courseId ? Math.floor((this.assignmentsDone / this.courseId.assignments) * 100) : 0;
   });
   
 progressSchema.set('toJSON', { virtuals: true });
