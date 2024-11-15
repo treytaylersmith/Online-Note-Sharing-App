@@ -31,7 +31,7 @@ function Signup(props) {
 
   return (
     <div className="container">
-      <Link to="/login">← Go to Login</Link>
+      
       <div className="d-flex justify-content-center align-items-center vh-50">
       <div className="card p-5 shadow-lg" style={{maxWidth: '600px', width: '100%'}}>
       <h2>Signup</h2>
@@ -68,6 +68,9 @@ function Signup(props) {
         </div>
         <div className="flex-row flex-end">
           <button className="btn btn-primary w-100" type="submit">Submit</button>
+        </div>
+        <div>
+          <p className="text-center mt-3">Already have an Account?<span className="p-2"><Link to="/login">Login</Link></span></p>
         </div>
       </form>
     </div>
