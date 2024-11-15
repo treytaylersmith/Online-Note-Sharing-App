@@ -116,66 +116,84 @@ db.once('open', async () => {
 
     console.log('courses seeded');
 
-    const users = await User.insertMany([
-        {
-            username: 'James',
-            email: 'james@email.com',
-            password: '123456AB',
-            courses: [ courses[0]._id, courses[1]._id]
-        },
-        {
-            username: 'Alyssa',
-            email: 'alyssa@email.com',
-            password: '123456AB',
-        },
-        {
-            username: 'Thomas',
-            email: 'thomas@email.com',
-            password: '123456AB',
-            courses: [ courses[1]._id]
-        },
-        {
-            username: 'Clarence',
-            email: 'clarence@email.com',
-            password: '123456AB',
-        },
-        {
-            username: 'Clifford',
-            email: 'clifford@email.com',
-            password: '123456AB',
-            courses: [ courses[2]._id]
-        },
-        {
-            username: 'Sophia',
-            email: 'sophia@email.com',
-            password: '123456AB',
-            courses: [ courses[3]._id, courses[4]._id ]
-        },
-        {
-            username: 'Ethan',
-            email: 'ethan@email.com',
-            password: '123456AB',
-            courses: [ courses[5]._id, courses[6]._id ]
-        },
-        {
-            username: 'Olivia',
-            email: 'olivia@email.com',
-            password: '123456AB',
-            courses: [ courses[7]._id ]
-        },
-        {
-            username: 'Isabella',
-            email: 'isabella@email.com',
-            password: '123456AB',
-            courses: [ courses[2]._id, courses[3]._id ]
-        },
-        {
-            username: 'Liam',
-            email: 'liam@email.com',
-            password: '123456AB',
-            courses: [ courses[5]._id, courses[8]._id ]
-        }
-    ]);
+ // Seeding Users one by one
+ const userData = [
+    {
+      username: 'James',
+      email: 'james@email.com',
+      password: '123456AB',
+      courses: [courses[0]._id, courses[1]._id]
+    },
+    {
+      username: 'Alyssa',
+      email: 'alyssa@email.com',
+      password: '123456AB',
+    },
+    {
+      username: 'Thomas',
+      email: 'thomas@email.com',
+      password: '123456AB',
+      courses: [courses[1]._id]
+    },
+    {
+      username: 'Clarence',
+      email: 'clarence@email.com',
+      password: '123456AB',
+    },
+    {
+      username: 'Clifford',
+      email: 'clifford@email.com',
+      password: '123456AB',
+      courses: [courses[2]._id]
+    },
+    {
+      username: 'Sophia',
+      email: 'sophia@email.com',
+      password: '123456AB',
+      courses: [courses[3]._id, courses[4]._id]
+    },
+    {
+      username: 'Ethan',
+      email: 'ethan@email.com',
+      password: '123456AB',
+      courses: [courses[5]._id, courses[6]._id]
+    },
+    {
+      username: 'Olivia',
+      email: 'olivia@email.com',
+      password: '123456AB',
+      courses: [courses[7]._id]
+    },
+    {
+      username: 'Isabella',
+      email: 'isabella@email.com',
+      password: '123456AB',
+      courses: [courses[2]._id, courses[3]._id]
+    },
+    {
+      username: 'Liam',
+      email: 'liam@email.com',
+      password: '123456AB',
+      courses: [courses[5]._id, courses[8]._id]
+    }
+  ];
+
+ // Array to store newly created users
+const users = [];
+
+// Create each user individually
+for (let user of userData) {
+  try {
+    const newUser = await User.create(user);
+    users.push(newUser); // Add the newly created user to the 'users' array
+    console.log(`User created: ${newUser.username}`);
+  } catch (err) {
+    console.error(`Error creating user: ${user.username}`, err);
+  }
+}
+
+console.log('Users array:', users); // Log the users array for reference
+
     
 
     await User.create(
