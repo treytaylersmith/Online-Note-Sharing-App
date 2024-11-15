@@ -1,12 +1,10 @@
 const express = require('express');
+const path = require('path');
 const dotenv = require('dotenv');
-
-
-
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const { authMiddleware } = require('./utils/auth');
-const path = require('path');
+
 
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
@@ -15,11 +13,12 @@ dotenv.config();
 
 
 const PORT = process.env.PORT || 3001;
-const app = express();
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
 });
+const app = express();
 
 const startApolloServer = async () => {
   await server.start();
@@ -39,7 +38,7 @@ const startApolloServer = async () => {
     });
   }
   
-  app.use('/graphql', expressMiddleware(server));
+  
 
   db.once('open', () => {
     app.listen(PORT, () => {

@@ -1,14 +1,13 @@
 const typeDefs = `
   type User {
-    _id: ID
+    _id: ID!
     username: String!
     email: String!
-    password: String!
     courses: [Course]
   }
 
   type Note {
-    _id: ID
+    _id: ID!
     text: String!
     noteAuthor: String!
     createdAt: String!
@@ -52,6 +51,7 @@ const typeDefs = `
     notes(username: String): [Note]
     getNotesByCourse(courseId: ID!): [Note]
     progressByUserAndCourse(userId: ID!, courseId: ID!): Progress
+    me: User
 
   }
 

@@ -14,6 +14,22 @@ query getCourses
 }
 `
 
+export const QUERY_ME = gql`
+  query me{
+     
+      _id
+      username
+      email
+      courses{  
+        _id
+        name
+         assignments
+        endDate
+        startDate
+      }
+  }
+`;
+
 export const QUERY_COURSE = gql`
 query getCourse($id: ID!) 
 {

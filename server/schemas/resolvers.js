@@ -1,26 +1,37 @@
-const {Course, Note, User, Progress, Category} = require('../models');
-const { signToken, AuthenticationError } = require('../utils/auth');
+const { Course, Note, User, Progress, Category } = require("../models");
+const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
-  Query:{
-    categories: async () =>{
+  Query: {
+    me: async (parent, args, context) => {
+      if (context.user) {
+        const userData = await User.findOne({ _id: context.user._id }).select(
+          "-__v -password"
+        );
+
+        return userData;
+      }
+
+      throw AuthenticationError("you're not logged in");
+    },
+    categories: async () => {
       return await Category.find();
     },
-    coursesByCategory: async (parent, {category})=>{
-      return await Course.find({category: category});
+    coursesByCategory: async (parent, { category }) => {
+      return await Course.find({ category: category });
     },
-    courses: async ()=>{
+    courses: async () => {
       return await Course.find();
     },
-    course: async (parent, {_id}) =>{
+    course: async (parent, { _id }) => {
       return await Course.findById(_id);
     },
-    users: async() =>{
+    users: async () => {
       return await User.find();
     },
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id).populate('courses');
+        const user = await User.findById(context.user._id).populate("courses");
 
         return user;
       }
@@ -28,33 +39,35 @@ const resolvers = {
       throw AuthenticationError;
     },
     notes: async (parent, { username }, context) => {
-      
-        return await Note.find({ noteAuthor: username });
-      
+      return await Note.find({ noteAuthor: username });
     },
     getNotesByCourse: async (parent, { courseId }) => {
       try {
-        const course = await Course.findById(courseId).populate('notes');
+        const course = await Course.findById(courseId).populate("notes");
         if (!course) {
-          throw new Error('Course not found');
+          throw new Error("Course not found");
         }
         return course.notes;
       } catch (error) {
-        throw new Error('Error fetching notes: ' + error.message);
+        throw new Error("Error fetching notes: " + error.message);
       }
     },
-    progressByUserAndCourse: async (parent, {userId, courseId}, context) =>{
-      if(context.user){
+    progressByUserAndCourse: async (parent, { userId, courseId }, context) => {
+      if (context.user) {
         const progress = await Progress.findOne({ userId, courseId });
         return progress ? progress.percentageDone : 0; // Return 0 if no progress found
       }
-    }
+    },
   },
   Mutation: {
-    addUser: async (parent, args)=>{
-      const user = await User.create(args);
-      const token = signToken(user);
-      return { token, user };
+    addUser: async (parent, args) => {
+      try {
+        const user = await User.create(args);
+        const token = signToken(user);
+        return { token, user };
+      } catch (err) {
+        console.log(err);
+      }
     },
     updateUser: async (parent, args, context) => {
       if (context.user) {
@@ -66,41 +79,43 @@ const resolvers = {
       throw AuthenticationError;
     },
     login: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
+      try {
+        const user = await User.findOne({ email });
+        console.log(user);
+        if (!user) {
+          throw AuthenticationError;
+        }
 
-      if (!user) {
-        throw AuthenticationError;
+        const correctPw = await user.isCorrectPassword(password);
+        console.log(correctPw);
+        if (!correctPw) {
+          throw AuthenticationError;
+        }
+
+        const token = signToken(user);
+
+        return { token, user };
+      } catch (err) {
+        console.log(err);
       }
-
-      const correctPw = await user.isCorrectPassword(password);
-
-      if (!correctPw) {
-        throw AuthenticationError;
-      }
-
-      const token = signToken(user);
-
-      return { token, user };
     },
-    addNote: async(parent, args)=>{
+    addNote: async (parent, args) => {
       return await Note.create(args);
     },
-    addCourse: async(parent, args)=>{
+    addCourse: async (parent, args) => {
       return await Course.create(args);
     },
-    enrollUserProgress: async(parent, args)=>{
+    enrollUserProgress: async (parent, args) => {
       return await Progress.create(args);
     },
-    updateProgress: async (parent, {_id, assignmentsDone})=>{
+    updateProgress: async (parent, { _id, assignmentsDone }) => {
       return await Progress.findByIdAndUpdate(
         _id,
-        {$inc: {assignmentsDone: assignmentsDone}},
-        {new: true}
+        { $inc: { assignmentsDone: assignmentsDone } },
+        { new: true }
       );
+    },
+  },
+};
 
-    }
-  }
-  
-}
-
-module.exports = resolvers
+module.exports = resolvers;
