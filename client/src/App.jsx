@@ -34,7 +34,6 @@ export default function App() {
         <ApolloProvider client={client}>
         <Nav/>
         <Outlet />
-        
         </ApolloProvider>
       </>
        
