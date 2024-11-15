@@ -1,5 +1,5 @@
 const db = require('./connection');
-const { User, Course, Progress, Note } = require('../models');
+const { User, Course, Progress, Note, Category } = require('../models');
 const cleanDB = require('./db');
 
 
@@ -12,36 +12,106 @@ db.once('open', async () => {
 
     const notes = await Note.insertMany([
         { noteAuthor: 'James', text: 'Lorem ipsum', createdAt: Date.now() },
-        { noteAuthor: 'Alyssa', text: 'Lorem ipsum' , createdAt: Date.now()},
+        { noteAuthor: 'Alyssa', text: 'Lorem ipsum' , createdAt: Date.now() },
         { noteAuthor: 'Thomas', text: 'Lorem ipsum', createdAt: Date.now() },
         { noteAuthor: 'Clarence', text: 'Lorem ipsum', createdAt: Date.now() },
         { noteAuthor: 'Clifford', text: 'Lorem ipsum', createdAt: Date.now() },
+        { noteAuthor: 'Sophia', text: 'Philosophy is the foundation of all learning.', createdAt: Date.now() },
+        { noteAuthor: 'Emily', text: 'Algorithms are the key to understanding computer science.', createdAt: Date.now() },
+        { noteAuthor: 'Liam', text: 'History shapes the future; never forget the past.', createdAt: Date.now() },
+        { noteAuthor: 'David', text: 'The future of AI depends on ethics and innovation.', createdAt: Date.now() },
+        { noteAuthor: 'Isabella', text: 'English literature unlocks the door to creativity and imagination.', createdAt: Date.now() },
     ]);
 
     console.log('notes seeded');
 
+    const categories = await Category.insertMany([
+        {
+            name: "STEM"
+        },
+        {
+            name: "Arts & Media"
+        },
+        {
+            name: "History"
+        },
+        {
+            name: "English"
+        },
+    ]);
     const courses = await Course.insertMany([
         {
             name: 'Biology', 
-            startDate:Date.now(), 
+            startDate: Date.now(), 
             endDate: (Date.now() + (120 *24 *60* 60* 1000)), 
             assignments: 20,
-            notes:[notes[0]._id, notes[1]._id, notes[2]._id]
+            notes: [notes[0]._id, notes[1]._id, notes[2]._id],
+            category: categories[0]._id
         },
         {
             name: 'Computer Science', 
-            startDate:Date.now(), 
+            startDate: Date.now(), 
             endDate: (Date.now() + (90 *24 *60* 60* 1000)), 
             assignments: 12,
-            notes:[notes[4]._id]
+            notes: [notes[4]._id],
+            category: categories[0]._id
         },
         {
             name: 'Algebra 2', 
-            startDate:Date.now(), 
+            startDate: Date.now(), 
             endDate: (Date.now() + (150 *24 *60* 60* 1000)), 
             assignments: 30,
-            notes:[]
+            notes: [],
+            category: categories[0]._id
         },
+        {
+            name: 'Digital Arts',
+            startDate: Date.now(), 
+            endDate: (Date.now() + (110 *24 *60* 60* 1000)), 
+            assignments: 18,
+            notes: [notes[6]._id],
+            category: categories[1]._id
+        },
+        {
+            name: 'World History',
+            startDate: Date.now(), 
+            endDate: (Date.now() + (130 *24 *60* 60* 1000)), 
+            assignments: 25,
+            notes: [notes[7]._id, notes[8]._id],
+            category: categories[2]._id
+        },
+        {
+            name: 'Creative Writing',
+            startDate: Date.now(), 
+            endDate: (Date.now() + (100 *24 *60* 60* 1000)), 
+            assignments: 15,
+            notes: [notes[9]._id],
+            category: categories[3]._id
+        },
+        {
+            name: 'Machine Learning',
+            startDate: Date.now(), 
+            endDate: (Date.now() + (140 *24 *60* 60* 1000)), 
+            assignments: 20,
+            notes: [notes[5]._id, notes[6]._id],
+            category: categories[0]._id
+        },
+        {
+            name: 'Philosophy',
+            startDate: Date.now(), 
+            endDate: (Date.now() + (150 *24 *60* 60* 1000)), 
+            assignments: 20,
+            notes: [notes[7]._id],
+            category: categories[2]._id
+        },
+        {
+            name: 'Literature Analysis',
+            startDate: Date.now(), 
+            endDate: (Date.now() + (80 *24 *60* 60* 1000)), 
+            assignments: 10,
+            notes: [notes[8]._id],
+            category: categories[3]._id
+        }
     ]);
 
     console.log('courses seeded');
@@ -57,7 +127,6 @@ db.once('open', async () => {
             userName: 'Alyssa',
             email: 'alyssa@email.com',
             password: '123456AB',
-            
         },
         {
             userName: 'Thomas',
@@ -69,7 +138,6 @@ db.once('open', async () => {
             userName: 'Clarence',
             email: 'clarence@email.com',
             password: '123456AB',
-            
         },
         {
             userName: 'Clifford',
@@ -77,7 +145,38 @@ db.once('open', async () => {
             password: '123456AB',
             courses: [ courses[2]._id]
         },
+        {
+            userName: 'Sophia',
+            email: 'sophia@email.com',
+            password: '123456AB',
+            courses: [ courses[3]._id, courses[4]._id ]
+        },
+        {
+            userName: 'Ethan',
+            email: 'ethan@email.com',
+            password: '123456AB',
+            courses: [ courses[5]._id, courses[6]._id ]
+        },
+        {
+            userName: 'Olivia',
+            email: 'olivia@email.com',
+            password: '123456AB',
+            courses: [ courses[7]._id ]
+        },
+        {
+            userName: 'Isabella',
+            email: 'isabella@email.com',
+            password: '123456AB',
+            courses: [ courses[2]._id, courses[3]._id ]
+        },
+        {
+            userName: 'Liam',
+            email: 'liam@email.com',
+            password: '123456AB',
+            courses: [ courses[5]._id, courses[8]._id ]
+        }
     ]);
+    
 
     await User.create(
         {
@@ -107,9 +206,40 @@ db.once('open', async () => {
         {
             courseId: courses[2]._id,
             userId: users[4]._id,
-            assignmentsDone: 12
+            assignmentsDone: 12,
+        },
+        {
+            courseId: courses[3]._id,
+            userId: users[5]._id,
+            assignmentsDone: 8
+        },
+        {
+            courseId: courses[4]._id,
+            userId: users[5]._id,
+            assignmentsDone: 15
+        },
+        {
+            courseId: courses[5]._id,
+            userId: users[6]._id,
+            assignmentsDone: 5
+        },
+        {
+            courseId: courses[6]._id,
+            userId: users[6]._id,
+            assignmentsDone: 7
+        },
+        {
+            courseId: courses[7]._id,
+            userId: users[7]._id,
+            assignmentsDone: 6
+        },
+        {
+            courseId: courses[8]._id,
+            userId: users[8]._id,
+            assignmentsDone: 3
         }
     ]);
+    
 
     console.log('progresses seeded');
 
