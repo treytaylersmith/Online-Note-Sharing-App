@@ -1,7 +1,4 @@
-
-import Header from './components/Header/header';
-import Login from './components/pages/login';
-import Signup from './components/pages/signup';
+import Nav from './components/Nav';
 import { Outlet } from 'react-router-dom';
 import {
   ApolloClient,
@@ -35,7 +32,8 @@ export default function App() {
   return (
       <>
         <ApolloProvider client={client}>
-        <Header />
+        <Nav/>
+        <Outlet />
         
         </ApolloProvider>
       </>
