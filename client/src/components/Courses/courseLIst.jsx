@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import api from '../api';
+
 
 const CourseList = () => {
     const [courses, setCourses] = useState([]);
