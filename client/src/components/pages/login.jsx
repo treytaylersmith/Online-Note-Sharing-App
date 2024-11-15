@@ -36,14 +36,15 @@ function Login(props) {
   };
 
   return (
-    <div className="container my-1">
-      <Link to="/signup">← Go to Signup</Link>
-
+    <div className="container">
+      
+      <div className="d-flex justify-content-center  vh-50">
+      <div className="card p-5 shadow-lg" style={{maxWidth: '600px', width: '100%'}}>
       <h2>Login</h2>
       <form onSubmit={handleFormSubmit}>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="email">Email address:</label>
-          <input
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">Email address:</label>
+          <input className="form-control"
             placeholder="youremail@test.com"
             name="email"
             type="email"
@@ -51,9 +52,9 @@ function Login(props) {
             onChange={handleChange}
           />
         </div>
-        <div className="flex-row space-between my-2">
+        <div className="mb-3">
           <label htmlFor="pwd">Password:</label>
-          <input
+          <input className="form-control"
             placeholder="******"
             name="password"
             type="password"
@@ -67,9 +68,14 @@ function Login(props) {
           </div>
         ) : null}
         <div className="flex-row flex-end">
-          <button type="submit">Submit</button>
+          <button className="btn btn-primary w-100" type="submit">Submit</button>
+        </div>
+        <div>
+          <p className="text-center mt-3">Don't have an Account?<span className="p-2"><Link to="/signup">Signup</Link></span></p>
         </div>
       </form>
+      </div>
+      </div>
     </div>
   );
 }
