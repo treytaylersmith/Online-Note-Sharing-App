@@ -118,59 +118,59 @@ db.once('open', async () => {
 
     const users = await User.insertMany([
         {
-            userName: 'James',
+            username: 'James',
             email: 'james@email.com',
             password: '123456AB',
             courses: [ courses[0]._id, courses[1]._id]
         },
         {
-            userName: 'Alyssa',
+            username: 'Alyssa',
             email: 'alyssa@email.com',
             password: '123456AB',
         },
         {
-            userName: 'Thomas',
+            username: 'Thomas',
             email: 'thomas@email.com',
             password: '123456AB',
             courses: [ courses[1]._id]
         },
         {
-            userName: 'Clarence',
+            username: 'Clarence',
             email: 'clarence@email.com',
             password: '123456AB',
         },
         {
-            userName: 'Clifford',
+            username: 'Clifford',
             email: 'clifford@email.com',
             password: '123456AB',
             courses: [ courses[2]._id]
         },
         {
-            userName: 'Sophia',
+            username: 'Sophia',
             email: 'sophia@email.com',
             password: '123456AB',
             courses: [ courses[3]._id, courses[4]._id ]
         },
         {
-            userName: 'Ethan',
+            username: 'Ethan',
             email: 'ethan@email.com',
             password: '123456AB',
             courses: [ courses[5]._id, courses[6]._id ]
         },
         {
-            userName: 'Olivia',
+            username: 'Olivia',
             email: 'olivia@email.com',
             password: '123456AB',
             courses: [ courses[7]._id ]
         },
         {
-            userName: 'Isabella',
+            username: 'Isabella',
             email: 'isabella@email.com',
             password: '123456AB',
             courses: [ courses[2]._id, courses[3]._id ]
         },
         {
-            userName: 'Liam',
+            username: 'Liam',
             email: 'liam@email.com',
             password: '123456AB',
             courses: [ courses[5]._id, courses[8]._id ]
@@ -180,7 +180,7 @@ db.once('open', async () => {
 
     await User.create(
         {
-        userName: 'George',
+        username: 'George',
         email: 'george@email.com',
         password: '123456AB',
         

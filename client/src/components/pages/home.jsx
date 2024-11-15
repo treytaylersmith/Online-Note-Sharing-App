@@ -6,7 +6,9 @@ function Home(props){
     const { loading, error, data } = useQuery(QUERY_ALL_COURSES);
     
     if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error:</div>; 
+
+    if (error) return <div>Error :</div>; 
+
         
     const courses = data.courses || [];
     

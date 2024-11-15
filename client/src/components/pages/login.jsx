@@ -1,23 +1,29 @@
-import { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { Link } from 'react-router-dom';
-import { LOGIN } from '../../utils/mutations';
-import Auth from '../../utils/auth'
+import { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { Link } from "react-router-dom";
+import { LOGIN } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 
 function Login(props) {
-  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error }] = useMutation(LOGIN);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const mutationResponse = await login({
+      const {data} = await login({
         variables: { email: formState.email, password: formState.password },
       });
-      const token = mutationResponse.data.login.token;
-      Auth.login(token);
+       console.log(data);
+      Auth.login(data.login.token);
     } catch (e) {
-      console.log('error', e);
+      console.log("Apollo Error:", e);
+      if (e.graphQLErrors) {
+        console.log("GraphQL Errors:", e.graphQLErrors);
+      }
+      if (e.networkError) {
+        console.log("Network Error:", e.networkError);
+      }
     }
   };
 

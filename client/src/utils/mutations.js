@@ -26,9 +26,12 @@ mutation Mutation($text: String!, $noteAuthor: String!) {
 export const  ADD_USER = gql`
 mutation addUser($username: String!, $email: String!, $password: String!) {
   addUser(username: $username, email: $email, password: $password) {
+    user{
     _id
     username
     email
+    }
+    token
   }
 }`
 
@@ -49,8 +52,10 @@ export const LOGIN = gql`
 mutation login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
     token
-    user {
+    user{
       _id
+      username
+      email
     }
   }
 }`
