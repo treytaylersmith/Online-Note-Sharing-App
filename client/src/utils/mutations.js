@@ -13,8 +13,8 @@ mutation addCourse($times: String!, $endDate: String!, $startDate: String!, $ass
 `
 
 export const ADD_NOTE = gql`
-mutation Mutation($text: String!, $noteAuthor: String!) {
-  addNote(text: $text, noteAuthor: $noteAuthor) {
+mutation AddNote($text: String!, $noteAuthor: String!, $courseId: ID!) {
+  addNote(text: $text, noteAuthor: $noteAuthor, courseId: $courseId) {
     _id
     createdAt
     noteAuthor
@@ -36,17 +36,19 @@ mutation addUser($username: String!, $email: String!, $password: String!) {
 }`
 
 export const ENROLL_USER_COURSE = gql`
-mutation enrollUserProgress($courseId: ID!, $userId: ID!) {
-  enrollUserProgress(courseId: $courseId, userId: $userId) {
-    courses {
+  mutation enrollUserProgress($courseId: ID!, $userId: ID!) {
+    enrollUserProgress(courseId: $courseId, userId: $userId) {
       _id
-      name
+      username
+      email
+      courses {
+        _id
+        
+      }
     }
-    _id
-    username
-    email
   }
-}`
+`;
+
 
 export const LOGIN = gql`
 mutation login($email: String!, $password: String!) {

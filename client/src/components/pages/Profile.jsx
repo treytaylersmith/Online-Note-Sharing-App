@@ -4,6 +4,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { UPDATE_USER } from '../../utils/mutations';
 import { QUERY_USER } from '../../utils/queries';
 import ListItem from '../ListItem';
+import AuthService from '../../utils/auth';
 
 const User = () => {
   const { _id } = useParams(); // Get user ID from URL params
@@ -50,27 +51,39 @@ const User = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       console.log("Submitting update with data:", formData);
       console.log("User ID:", _id);
-  
+
       // Trigger the UPDATE_USER mutation
-      const { data: mutationData } = await updateUser({
+      const response = await updateUser({
         variables: {
           updateUserId: _id, // Use updateUserId instead of id to match the mutation
           username: formData.username,
           email: formData.email,
         },
       });
-  
+
       // Check for the mutation response
-      console.log('Updated user data:', mutationData);
-      alert('Profile updated successfully!');
-  
-      // Refresh the page to reflect the updated profile
-      window.location.reload();
-  
+      console.log('Updated user data:', response);
+
+      // Retrieve the updated token from the response (assuming the server returns a new token)
+      const updatedToken = response.data.updateUser.token;  // Adjust based on actual response shape
+
+      if (updatedToken) {
+        // Update the token in localStorage
+        AuthService.login(updatedToken);
+
+        // Optionally, update the user profile in state or redirect the user
+        alert('Profile updated successfully!');
+      } else {
+        alert('Failed to retrieve updated token.');
+      }
+
+      // Optionally refresh the page or update the UI without reloading
+      // window.location.reload(); // You can comment this out if you prefer not to reload the page
+
     } catch (err) {
       console.error('Error updating profile', err);
       alert('Failed to update profile.');

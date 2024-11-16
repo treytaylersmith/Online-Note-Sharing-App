@@ -87,7 +87,7 @@ const resolvers = {
           { new: true, runValidators: true } // 'new' returns the updated document, 'runValidators' ensures validation
         );
         console.log(updatedUser)
-        const token = signToken(updatedUser);
+        const token = signToken(updatedUser.username,updatedUser.email,updatedUser._id);
         // If the user doesn't exist, throw an error
         if (!updatedUser) {
           throw new Error('User not found');
@@ -122,14 +122,61 @@ const resolvers = {
         console.log(err);
       }
     },
-    addNote: async (parent, args) => {
-      return await Note.create(args);
+    addNote: async (parent, { text, noteAuthor, courseId }) => {
+      try {
+        // 1. Create the note
+        const newNote = await Note.create({ text, noteAuthor });
+        console.log(newNote);
+  
+        // 2. Find the course by courseId and update the notes array with the new note
+        const updatedCourse = await Course.findByIdAndUpdate(
+          courseId,
+          { $push: { notes: newNote._id } }, // Add the note's _id to the notes array
+          { new: true }
+        ).populate("notes");
+  
+        // 3. Return the newly created note (you can adjust the return object if needed)
+        return newNote;
+      } catch (err) {
+        console.error("Error adding note to course:", err);
+        throw new Error("Error adding note to course");
+      }
     },
     addCourse: async (parent, args) => {
       return await Course.create(args);
     },
-    enrollUserProgress: async (parent, args) => {
-      return await Progress.create(args);
+    enrollUserProgress: async (parent, { courseId, userId }, context) => {
+      try {
+        // 1. Find the user by userId
+        const user = await User.findById(userId);
+  
+        if (!user) {
+          throw new Error('User not found');
+        }
+  
+        // 2. Check if the user is already enrolled in the course
+        if (user.courses.includes(courseId)) {
+          throw new Error('User is already enrolled in this course');
+        }
+  
+        // 3. Add the courseId to the user's courses array
+        user.courses.push(courseId);
+        await user.save(); // Save the user with the updated courses list
+  
+        // 4. Create a progress entry for this user and course
+        const progress = await Progress.create({
+          userId: user._id,
+          courseId: courseId,
+          assignmentsDone: 0, // Initialize with no assignments done
+          percentageDone: 0, // Initialize with 0% progress
+        });
+  
+        // 5. Return the updated user data (optional)
+        return user;
+      } catch (error) {
+        console.error('Error enrolling user in course:', error);
+        throw new Error('Error enrolling user in course');
+      }
     },
     updateProgress: async (parent, { _id, assignmentsDone }) => {
       return await Progress.findByIdAndUpdate(
