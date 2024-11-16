@@ -3,9 +3,15 @@ import decode from 'jwt-decode';
 class AuthService {
   getProfile() {
     const token = this.getToken();
-    const decoded = decode(token);
-    console.log('Decoded token:', decoded);  // Log the decoded token to see its structure
-    return decoded;  // Ensure the profile includes the '_id' field
+    
+    if (token) {
+      const decoded = decode(token); // assuming jwtDecode is the library you're using
+      console.log('Decoded token:', decoded);  // Log the decoded token to see its structure
+      return decoded;  // Ensure the profile includes the '_id' field
+    } else {
+      console.error('No token found!');
+    }
+    
   }
   
 
@@ -17,6 +23,7 @@ class AuthService {
 
   isTokenExpired(token) {
     try {
+      
       const decoded = decode(token);
       if (decoded.exp < Date.now() / 1000) {
         return true;
