@@ -34,7 +34,7 @@ function Signup(props) {
       
       <div className="d-flex justify-content-center align-items-center vh-50">
       <div className="card p-5 shadow-lg" style={{maxWidth: '600px', width: '100%'}}>
-      <h2>Signup</h2>
+      <h2 className="text-center">Signup</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="mb-3">
           <label className="form-label" htmlFor="firstName">First Name:</label>

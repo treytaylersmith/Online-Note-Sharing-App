@@ -40,7 +40,7 @@ function Login(props) {
       
       <div className="d-flex justify-content-center  vh-50">
       <div className="card p-5 shadow-lg" style={{maxWidth: '600px', width: '100%'}}>
-      <h2>Login</h2>
+      <h2 className="text-center">Login</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">Email address:</label>
