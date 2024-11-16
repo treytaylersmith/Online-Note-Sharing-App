@@ -2,8 +2,12 @@ import decode from 'jwt-decode';
 
 class AuthService {
   getProfile() {
-    return decode(this.getToken());
+    const token = this.getToken();
+    const decoded = decode(token);
+    console.log('Decoded token:', decoded);  // Log the decoded token to see its structure
+    return decoded;  // Ensure the profile includes the '_id' field
   }
+  
 
   loggedIn() {
     // Checks if there is a saved token and it's still valid

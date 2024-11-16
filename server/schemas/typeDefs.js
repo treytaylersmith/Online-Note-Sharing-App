@@ -70,7 +70,7 @@ const typeDefs = `
       userId: ID!
     ): User
     updateProgress(assignmentsDone: Int!): Progress
-    updateUser(username: String!, email:String!, password: String!): Auth
+    updateUser(id: ID!, username: String, email: String): Auth
   }
 `;
 

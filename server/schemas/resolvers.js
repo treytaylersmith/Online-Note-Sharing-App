@@ -1,6 +1,6 @@
 const { Course, Note, User, Progress, Category } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
-
+const generateToken = require('../utils/genarateToken');
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
@@ -69,14 +69,37 @@ const resolvers = {
         console.log(err);
       }
     },
-    updateUser: async (parent, args, context) => {
-      if (context.user) {
-        return await User.findByIdAndUpdate(context.user._id, args, {
-          new: true,
-        });
-      }
+    updateUser: async (_, { id, username, email }) => {
+      console.log(username);
+      console.log(id)
+      console.log(email)
+      try {
+        // Set up an object for the fields that need to be updated
+        const updateFields = {};
+        if (username) updateFields.username = username;  // Update to 'username' instead of 'name'
+        if (email) updateFields.email = email;
+        
 
-      throw AuthenticationError;
+        // Update the user using findByIdAndUpdate
+        const updatedUser = await User.findByIdAndUpdate(
+          id, 
+          updateFields, 
+          { new: true, runValidators: true } // 'new' returns the updated document, 'runValidators' ensures validation
+        );
+        console.log(updatedUser)
+        const token = signToken(updatedUser);
+        // If the user doesn't exist, throw an error
+        if (!updatedUser) {
+          throw new Error('User not found');
+        }
+    
+         
+        console.log({token, updatedUser})// Generate token for the updated user
+        return { token, updatedUser };
+      } catch (err) {
+        console.error('Error updating user:', err);
+        throw new Error('Failed to update user');
+      }
     },
     login: async (parent, { email, password }) => {
       try {
