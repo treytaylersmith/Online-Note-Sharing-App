@@ -31,10 +31,12 @@ export default function App() {
 
   return (
       <>
+      <div style={{background: '#AFDDE5'}}>
         <ApolloProvider client={client}>
         <Nav/>
         <Outlet />
         </ApolloProvider>
+        </div>
       </>
        
   )

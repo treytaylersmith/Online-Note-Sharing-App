@@ -12,6 +12,7 @@ const db = require('./config/connection');
 dotenv.config();
 
 
+
 const PORT = process.env.PORT || 3001;
 
 const server = new ApolloServer({
@@ -37,7 +38,6 @@ const startApolloServer = async () => {
       res.sendFile(path.join(__dirname, '../client/dist/index.html'));
     });
   }
-  
   
 
   db.once('open', () => {

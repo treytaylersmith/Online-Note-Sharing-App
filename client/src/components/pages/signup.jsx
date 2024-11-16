@@ -37,7 +37,7 @@ function Signup(props) {
       <h2 className="text-center">Signup</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="mb-3">
-          <label className="form-label" htmlFor="firstName">First Name:</label>
+          <label className="form-label" htmlFor="firstName">Username</label>
           <input className="form-control"
             placeholder="User Name"
             name="username"
@@ -47,7 +47,7 @@ function Signup(props) {
           />
         </div>
         <div className="mb-3">
-          <label className="form-label"htmlFor="email">Email:</label>
+          <label className="form-label"htmlFor="email">Email</label>
           <input className="form-control"
             placeholder="youremail@test.com"
             name="email"
@@ -57,7 +57,7 @@ function Signup(props) {
           />
         </div>
         <div className="mb-3">
-          <label className="form-label"htmlFor="pwd">Password:</label>
+          <label className="form-label"htmlFor="pwd">Password</label>
           <input className="form-control"
             placeholder="******"
             name="password"
