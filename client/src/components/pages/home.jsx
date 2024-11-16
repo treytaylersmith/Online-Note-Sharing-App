@@ -1,5 +1,7 @@
 import Grad from "../../assets/icons8-graduate-94.png";
 import { Link } from "react-router-dom";
+
+
 function Home() {
   return (
     <div className="container">
@@ -61,6 +63,7 @@ function Home() {
           </Link>
         </div>
       </section>
+  
     </div>
   );
 }
