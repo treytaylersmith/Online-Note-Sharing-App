@@ -13,6 +13,9 @@ export default function Nav() {
         <Link key={2} className="nav-link text-light" to="/login">
           login
         </Link>,
+         <Link key={3} className="nav-link text-light" to="/courseLIst">
+         Course List
+       </Link>,
       ]}
     />
   );

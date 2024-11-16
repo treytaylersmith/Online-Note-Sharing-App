@@ -1,22 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import { useQuery } from "@apollo/client";
+import { QUERY_ALL_COURSES } from "../../utils/queries";
+import {Link} from 'react-router-dom';
 
 
-const CourseList = () => {
-    const [courses, setCourses] = useState([]);
+function CourseList(props){
+    const { loading, error, data } = useQuery(QUERY_ALL_COURSES);
+    
+    if (loading) return <div>Loading...</div>;
 
-    useEffect(() => {
-        const fetchCourses = async () => {
-            const { data } = await api.get('/courses');
-            setCourses(data);
-        };
-        fetchCourses();
-    }, []);
+    if (error) return <div>Error :</div>; 
 
-    return (
-        <ul>
-            {courses.map(course => <li key={course._id}>{course.name}</li>)}
-        </ul>
+    return(
+        <div className="container mt-5" >
+        <div className="row justify-content-center">
+          <div className="col-md-8">
+            <div className="card shadow-lg">
+              <div className="card-body text-center">
+                <h5 className="card-title">Courses</h5>
+                <p className="card-text"></p>
+                <p>Browse through the available courses below:</p>
+                        <ul className="me-4 list-unstyled">
+                            {data.courses?.map((course) => (
+                                <li key={course._id}>
+                                    <Link to={`../pages/course/${course._id}`}>
+                                        {course.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
     );
-};
+
+}
 
 export default CourseList;
