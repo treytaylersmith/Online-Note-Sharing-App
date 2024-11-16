@@ -18,7 +18,7 @@ function Course(){
     if (!data || !data.course) {
         return <div>No course data found for the provided ID.</div>;
     }
-
+    
     return (
         <div>
         <h1>{data.course.name}</h1>
