@@ -9,7 +9,7 @@ This is a online course tracker for any time of class, college, or certificate p
 - [Online-Note-Sharing-App](#online-note-sharing-app)
     - [Description](#description)
     - [Table of Contents](#table-of-contents)
-  - [ScreenShots](#screenshots)
+    - [ScreenShots](#screenshots)
     - [Usage](#usage)
     - [License](#license)
     - [Contribute](#contribute)
