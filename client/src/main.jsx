@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Home from './components/pages/home';
 import Login from './components/pages/login.jsx';
 import Signup from './components/pages/signup.jsx';
-import Courses from './components/Courses/courseLIst.jsx';
+import CourseList from './components/Courses/courseLIst.jsx';
 import Course from './components/pages/course.jsx';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -28,9 +28,9 @@ const router = createBrowserRouter([
         element: <Signup />
       },{
         path: '/courseLIst',
-        element: <Courses/>
+        element: <CourseList/>
       },{
-        path: 'pages/course/:id',
+        path: '/course/:_id',
         element: <Course/>
       },
     ],

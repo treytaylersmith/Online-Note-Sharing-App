@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { QUERY_ALL_COURSES } from "../../utils/queries";
 import {Link} from 'react-router-dom';
-
+import ListItem from "../ListItem";
 
 function CourseList(props){
     const { loading, error, data } = useQuery(QUERY_ALL_COURSES);
@@ -21,11 +21,18 @@ function CourseList(props){
                 <p>Browse through the available courses below:</p>
                         <ul className="me-4 list-unstyled">
                             {data.courses?.map((course) => (
-                                <li key={course._id}>
-                                    <Link to={`../pages/course/${course._id}`}>
-                                        {course.name}
-                                    </Link>
-                                </li>
+                               
+                                <ListItem key={course._id}>
+                                {course.name}
+                                {/* Link to the detailed page of the project */}
+                                <Link
+                                  to={`/course/${course._id}`}
+                                  className="badge bg-primary rounded-pill"
+                                >
+                                    { console.log(course)}
+                                  See More
+                                </Link>
+                              </ListItem>
                             ))}
                         </ul>
             </div>

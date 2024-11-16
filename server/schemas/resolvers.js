@@ -21,10 +21,10 @@ const resolvers = {
       return await Course.find({ category: category });
     },
     courses: async () => {
-      return await Course.find();
+      return await Course.find().populate("notes");
     },
     course: async (parent, { _id }) => {
-      return await Course.findById(_id);
+      return await Course.findById(_id).populate("notes");
     },
     users: async () => {
       return await User.find();

@@ -3,9 +3,9 @@ import {QUERY_COURSE} from '../../utils/queries';
 import { useParams } from 'react-router-dom';
 
 function Course(){
-    const { id } = useParams();
+    const { _id } = useParams();
     const { loading, error, data } = useQuery(QUERY_COURSE, {
-        variables: {id},
+        variables: {id: _id},
        
     });
     console.log(data);
@@ -27,7 +27,7 @@ function Course(){
         <p>Start Date: {data.course.startDate}</p>
         <p>End Date: {data.course.endDate}</p>
         {/* Render notes */}
-        {/* <div>
+         <div>
             <h2>Notes:</h2>
             {data.course.notes.map(note => (
                 <div key={note._id}>
@@ -36,7 +36,7 @@ function Course(){
                     <p>{note.text}</p>
                 </div>
             ))}
-        </div> */}
+        </div> 
     </div>
     );
 }
