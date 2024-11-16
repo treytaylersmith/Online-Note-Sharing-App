@@ -9,6 +9,7 @@ import Login from './components/pages/login.jsx';
 import Signup from './components/pages/signup.jsx';
 import CourseList from './components/Courses/courseLIst.jsx';
 import Course from './components/pages/course.jsx';
+import Profile from './components/pages/Profile.jsx'
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const router = createBrowserRouter([
@@ -32,6 +33,14 @@ const router = createBrowserRouter([
       },{
         path: '/course/:_id',
         element: <Course/>
+      },
+      {
+        path: '/user/:_id',
+        element: <Profile/>
+      },
+      {
+        path: '/editProfile',
+        element: <editProfile/>
       },
     ],
   },

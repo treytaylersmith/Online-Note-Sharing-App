@@ -77,13 +77,20 @@ mutation updateProgress($assignmentsDone: Int!) {
 }`
 
 export const UPDATE_USER = gql`
-mutation updateUser($username: String!, $email: String!, $password: String!) {
-  updateUser(username: $username, email: $email, password: $password) {
-      user {
-      username
-      email
-      _id
-    }
+mutation Mutation($updateUserId: ID!, $username: String, $email: String) {
+  updateUser(id: $updateUserId, username: $username, email: $email) {
     token
+    user {
+      _id
+      courses {
+        _id
+        endDate
+        name
+      }
+      email
+      username
+    }
   }
-}`
+}
+`;
+
