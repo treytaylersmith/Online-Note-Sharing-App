@@ -28,7 +28,8 @@ This is a online course tracker for any time of class, college, or certificate p
 
 ![alt text](client/src/assets/courseAndNotesScreenImage.png)
 
-![alt text](client/src/assets/profilePageScreenImage.png)
+
+![profilePageScreenImage](https://github.com/user-attachments/assets/865527b5-d927-4424-9c55-695c0b890093)
 
 ![alt text](client/src/assets/mobileScreenImage.png)
 
