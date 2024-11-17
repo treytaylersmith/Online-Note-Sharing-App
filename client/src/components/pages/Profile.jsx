@@ -5,7 +5,7 @@ import { UPDATE_USER } from '../../utils/mutations';
 import { QUERY_USER } from '../../utils/queries';
 import ListItem from '../ListItem';
 import AuthService from '../../utils/auth';
-
+import Chat from '../Chat';
 const User = () => {
   const { _id } = useParams(); // Get user ID from URL params
 
@@ -249,6 +249,7 @@ const User = () => {
       </>
     )}
   </div>
+    <Chat/>
 </div>
   );
 };

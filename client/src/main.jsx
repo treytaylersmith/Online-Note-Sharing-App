@@ -11,6 +11,7 @@ import Signup from './components/pages/signup.jsx';
 import CourseList from './components/Courses/courseLIst.jsx';
 import Course from './components/pages/course.jsx';
 import Profile from './components/pages/Profile.jsx'
+import Chat from './components/Chat.jsx';
 
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -43,6 +44,9 @@ const router = createBrowserRouter([
       {
         path: '/editProfile',
         element: <editProfile/>
+      },{
+        path: '/chat',
+        element: <Chat/>
       },
       
     ],
