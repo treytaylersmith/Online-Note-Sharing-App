@@ -6,6 +6,8 @@ import { QUERY_USER } from '../../utils/queries';
 import ListItem from '../ListItem';
 import AuthService from '../../utils/auth';
 import Chat from '../Chat';
+import Grad from '../gradeInput';
+
 const User = () => {
   const { _id } = useParams(); // Get user ID from URL params
 
@@ -163,7 +165,8 @@ const User = () => {
     //     )}
     //   </div>
     // </div>
-    <div className="card m-5 shadow-sm p-5">
+    <div >
+    <div className=" card m-5 shadow-sm p-5">
   <h2 className="card-header text-center bg-primary text-white mb-4">{user.username}</h2>
 
   <div className="mb-4">
@@ -249,8 +252,14 @@ const User = () => {
       </>
     )}
   </div>
-    <Chat/>
-</div>
+  <div>
+  <Chat/>
+  </div>
+  </div>
+  <div>
+    <Grad/>
+  </div>
+ </div>
   );
 };
 
