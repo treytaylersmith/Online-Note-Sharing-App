@@ -53,7 +53,7 @@ const GradeInput = () => {
               type="number"
               className="form-control"
               value={midterm1}
-              onChange={(e) => setMidterm1(parseFloat(e.target.value) || 0)}  
+              onChange={(e) => setMidterm1(parseFloat(e.target.value) || 0)} 
             />
           </div>
 
