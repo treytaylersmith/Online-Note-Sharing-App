@@ -2,13 +2,14 @@
 
 ### Description
 
-This is a online course tracker for any time of class, college, or certificate program.
+This is a online course tracker for any type of class, college, or certificate program. It allows you to add courses and grades. It even has Chatgpt for assistance. 
 
 ### Table of Contents
 
 - [Online-Note-Sharing-App](#online-note-sharing-app)
     - [Description](#description)
     - [Table of Contents](#table-of-contents)
+    - [Technologies Used](#technologies-used)
     - [ScreenShots](#screenshots)
     - [Usage](#usage)
     - [License](#license)
@@ -16,7 +17,15 @@ This is a online course tracker for any time of class, college, or certificate p
     - [Questions](#questions)
 
 
-## ScreenShots
+### Technologies Used
+
+* Front-end
+  * React.js, HTML, css, Bootstrap, openai, axios, graphql, jwt-decode
+* Back-end
+  * express, mongodb, mongoose, apollo/client, apollo/server 
+  * bcrypt, openai, jsonwebtoken, graphql, stripe, dotenv, cors
+
+### ScreenShots
 
 ![alt text](client/src/assets/homeScreenImage.png)
 
