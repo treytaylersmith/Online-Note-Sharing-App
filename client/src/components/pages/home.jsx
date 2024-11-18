@@ -1,5 +1,6 @@
 import Grad from "../../assets/icons8-graduate-94.png";
 import { Link } from "react-router-dom";
+
 function Home() {
   return (
     <div className="container">
@@ -35,7 +36,7 @@ function Home() {
               <h4 className="mt-3">Track Progress</h4>
               <p>
                 Monitor your learning journey with real-time progress tracking
-                and analytics.
+                and analytics. Also use Chatgpt to help with your success goals.
               </p>
             </div>
             <div className="col-md-4 mb-4">
@@ -61,6 +62,7 @@ function Home() {
           </Link>
         </div>
       </section>
+
     </div>
   );
 }

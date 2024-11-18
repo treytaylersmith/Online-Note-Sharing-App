@@ -4,7 +4,9 @@ import { useQuery, useMutation } from '@apollo/client';
 import { UPDATE_USER } from '../../utils/mutations';
 import { QUERY_USER } from '../../utils/queries';
 import ListItem from '../ListItem';
-import AuthService from '../../utils/auth'
+import AuthService from '../../utils/auth';
+import Chat from '../Chat';
+import Grad from '../gradeInput';
 
 const User = () => {
   const { _id } = useParams(); // Get user ID from URL params
@@ -84,73 +86,168 @@ const User = () => {
   }
 
   return (
-    <div>
-      <h2 className="card-header">{user.username}</h2> {/* Display 'username' instead of 'name' */}
+    // <div>
+    //   <h2 className="card-header">{user.username}</h2> {/* Display 'username' instead of 'name' */}
 
-      <h3>Enrolled Courses</h3>
-      <ul className="me-4 list-unstyled">
-        {user.courses?.map((course) => (
-          <ListItem key={course._id}>
+    //   <h3>Enrolled Courses</h3>
+    //   <ul className="me-4 list-unstyled">
+    //     {user.courses?.map((course) => (
+    //       <ListItem key={course._id}>
+    //         {course.name}
+    //         {/* Link to the detailed page of the course */}
+    //         <Link to={`/course/${course._id}`} className="badge bg-primary rounded-pill">
+    //           See More
+    //         </Link>
+    //       </ListItem>
+    //     ))}
+    //   </ul>
+
+    //   <div className="my-4 p-4" style={{ border: '1px dotted #1a1a1a' }}>
+    //     {/* Button to toggle the Edit Profile form */}
+    //     {!isEditing ? (
+    //       <button className="btn btn-primary" onClick={() => setIsEditing(true)}>
+    //         Edit Profile
+    //       </button>
+    //     ) : (
+    //       <>
+    //         <h3>Edit Profile</h3>
+    //         <form onSubmit={handleSubmit}>
+    //           <div className="mb-3">
+    //             <label htmlFor="username" className="form-label"> {/* Update input label to 'username' */}
+    //               Username
+    //             </label>
+    //             <input
+    //               type="text"
+    //               className="form-control"
+    //               id="username"
+    //               name="username"  
+    //               value={formData.username}
+    //               onChange={handleChange}
+    //             />
+    //           </div>
+    //           <div className="mb-3">
+    //             <label htmlFor="email" className="form-label">
+    //               Email
+    //             </label>
+    //             <input
+    //               type="email"
+    //               className="form-control"
+    //               id="email"
+    //               name="email"
+    //               value={formData.email}
+    //               onChange={handleChange}
+    //             />
+    //           </div>
+    //           <button type="submit" className="btn btn-primary">
+    //             Save Changes
+    //           </button>
+    //           <button
+    //             type="button"
+    //             className="btn btn-secondary ms-2"
+    //             onClick={() => setIsEditing(false)} // Close the form without saving
+    //           >
+    //             Cancel
+    //           </button>
+    //         </form>
+    //       </>
+    //     )}
+    //   </div>
+    // </div>
+    <div >
+    <div className=" card m-5 shadow-sm p-5">
+  <h2 className="card-header text-center bg-primary text-white mb-4">{user.username}</h2>
+
+  <div className="mb-4">
+    <h3 className="fw-bold">Enrolled Courses</h3>
+    {user.courses?.length > 0 ? (
+      <ul className="list-group list-group-flush">
+        {user.courses.map((course) => (
+          <li
+            key={course._id}
+            className="list-group-item d-flex justify-content-between align-items-center"
+          >
             {course.name}
-            {/* Link to the detailed page of the course */}
-            <Link to={`/course/${course._id}`} className="badge bg-primary rounded-pill">
+            <Link
+              to={`/course/${course._id}`}
+              className="badge bg-primary rounded-pill text-decoration-none"
+            >
               See More
             </Link>
-          </ListItem>
+          </li>
         ))}
       </ul>
+    ) : (
+      <p className="text-muted">No courses enrolled yet.</p>
+    )}
+  </div>
 
-      <div className="my-4 p-4" style={{ border: '1px dotted #1a1a1a' }}>
-        {/* Button to toggle the Edit Profile form */}
-        {!isEditing ? (
-          <button className="btn btn-primary" onClick={() => setIsEditing(true)}>
-            Edit Profile
-          </button>
-        ) : (
-          <>
-            <h3>Edit Profile</h3>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-3">
-                <label htmlFor="username" className="form-label"> {/* Update input label to 'username' */}
-                  Username
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="username"
-                  name="username"  
-                  value={formData.username}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="email" className="form-label">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
-              </div>
-              <button type="submit" className="btn btn-primary">
-                Save Changes
-              </button>
-              <button
-                type="button"
-                className="btn btn-secondary ms-2"
-                onClick={() => setIsEditing(false)} // Close the form without saving
-              >
-                Cancel
-              </button>
-            </form>
-          </>
-        )}
-      </div>
-    </div>
+  <div
+    className="border rounded p-4 bg-light"
+    style={{ borderStyle: "dotted", borderColor: "#1a1a1a" }}
+  >
+    {!isEditing ? (
+      <button
+        className="btn btn-primary w-100"
+        onClick={() => setIsEditing(true)}
+      >
+        Edit Profile
+      </button>
+    ) : (
+      <>
+        <h3 className="fw-bold mb-3">Edit Profile</h3>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="username" className="form-label">
+              Username
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="username"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              placeholder="Enter your username"
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">
+              Email
+            </label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter your email"
+            />
+          </div>
+          <div className="d-flex justify-content-between">
+            <button type="submit" className="btn btn-primary">
+              Save Changes
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => setIsEditing(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </>
+    )}
+  </div>
+  <div>
+  <Chat/>
+  </div>
+  </div>
+  <div>
+    <Grad/>
+  </div>
+ </div>
   );
 };
 

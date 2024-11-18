@@ -81,63 +81,146 @@ function Course() {
   };
 
   return (
-    <div>
-      <h1>{data.course.name}</h1>
-      <p>ID: {data.course._id}</p>
-      <p>Assignments: {data.course.assignments}</p>
-      <p>Start Date: {data.course.startDate}</p>
-      <p>End Date: {data.course.endDate}</p>
+    // <div>
+    //   <h1>{data.course.name}</h1>
+    //   <p>ID: {data.course._id}</p>
+    //   <p>Assignments: {data.course.assignments}</p>
+    //   <p>Start Date: {data.course.startDate}</p>
+    //   <p>End Date: {data.course.endDate}</p>
 
-      {/* Enroll button */}
+    //   {/* Enroll button */}
+    //   <button className="btn btn-primary" onClick={handleEnroll}>
+    //     Enroll in Course
+    //   </button>
+
+    //   {/* Toggle button for note form */}
+    //   <button
+    //     className="btn btn-secondary ms-3"
+    //     onClick={() => setIsNoteFormVisible(!isNoteFormVisible)}
+    //   >
+    //     Add Note
+    //   </button>
+
+    //   {/* Conditionally render the note form */}
+    //   {isNoteFormVisible && (
+    //     <form onSubmit={handleNoteSubmit}>
+    //       <div className="mb-3">
+    //         <label htmlFor="noteText" className="form-label">
+    //           Note Text
+    //         </label>
+    //         <textarea
+    //           id="noteText"
+    //           className="form-control"
+    //           value={noteText}
+    //           onChange={(e) => setNoteText(e.target.value)}
+    //           required
+    //         />
+    //       </div>
+    //       <button type="submit" className="btn btn-primary">
+    //         Submit Note
+    //       </button>
+    //     </form>
+    //   )}
+
+    //   {/* Render the course notes */}
+    //   <div>
+    //     <h2>Notes:</h2>
+    //     {data.course.notes.length === 0 ? (
+    //       <p>No notes available for this course.</p>
+    //     ) : (
+    //       data.course.notes.map((note) => (
+    //         <div key={note._id}>
+    //           <p>{note.createdAt}</p>
+    //           <p>{note.noteAuthor}</p>
+    //           <p>{note.text}</p>
+    //         </div>
+    //       ))
+    //     )}
+    //   </div>
+    // </div>
+    <div className="container my-5">
+  {/* Course Details Section */}
+  <div className="card shadow-sm p-4 mb-4">
+    <h1 className="card-title text-primary mb-3">{data.course.name}</h1>
+    <p>
+      <strong>ID:</strong> {data.course._id}
+    </p>
+    <p>
+      <strong>Assignments:</strong> {data.course.assignments}
+    </p>
+    <p>
+      <strong>Start Date:</strong> {data.course.startDate}
+    </p>
+    <p>
+      <strong>End Date:</strong> {data.course.endDate}
+    </p>
+    <div className="d-flex gap-3 mt-3">
+      {/* Enroll Button */}
       <button className="btn btn-primary" onClick={handleEnroll}>
         Enroll in Course
       </button>
 
-      {/* Toggle button for note form */}
+      {/* Add Note Button */}
       <button
-        className="btn btn-secondary ms-3"
+        className="btn btn-secondary"
         onClick={() => setIsNoteFormVisible(!isNoteFormVisible)}
       >
-        Add Note
+        {isNoteFormVisible ? "Close Note Form" : "Add Note"}
       </button>
-
-      {/* Conditionally render the note form */}
-      {isNoteFormVisible && (
-        <form onSubmit={handleNoteSubmit}>
-          <div className="mb-3">
-            <label htmlFor="noteText" className="form-label">
-              Note Text
-            </label>
-            <textarea
-              id="noteText"
-              className="form-control"
-              value={noteText}
-              onChange={(e) => setNoteText(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Submit Note
-          </button>
-        </form>
-      )}
-
-      {/* Render the course notes */}
-      <div>
-        <h2>Notes:</h2>
-        {data.course.notes.length === 0 ? (
-          <p>No notes available for this course.</p>
-        ) : (
-          data.course.notes.map((note) => (
-            <div key={note._id}>
-              <p>{note.createdAt}</p>
-              <p>{note.noteAuthor}</p>
-              <p>{note.text}</p>
-            </div>
-          ))
-        )}
-      </div>
     </div>
+  </div>
+
+  {/* Note Form Section */}
+  {isNoteFormVisible && (
+    <div className="card shadow-sm p-4 mb-4">
+      <h2 className="card-title text-secondary mb-3">Add a Note</h2>
+      <form onSubmit={handleNoteSubmit}>
+        <div className="mb-3">
+          <label htmlFor="noteText" className="form-label">
+            Note Text
+          </label>
+          <textarea
+            id="noteText"
+            className="form-control"
+            value={noteText}
+            onChange={(e) => setNoteText(e.target.value)}
+            rows="4"
+            placeholder="Write your note here..."
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Submit Note
+        </button>
+      </form>
+    </div>
+  )}
+
+  {/* Notes Section */}
+  <div className="card shadow-sm p-4">
+    <h2 className="card-title text-secondary mb-3">Notes</h2>
+    {data.course.notes.length === 0 ? (
+      <p className="text-muted">No notes available for this course.</p>
+    ) : (
+      <ul className="list-group list-group-flush">
+        {data.course.notes.map((note) => (
+          <li key={note._id} className="list-group-item">
+            <div className="mb-2">
+              <strong>Date:</strong> {note.createdAt}
+            </div>
+            <div className="mb-2">
+              <strong>Author:</strong> {note.noteAuthor}
+            </div>
+            <div>
+              <strong>Note:</strong> {note.text}
+            </div>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</div>
+
   );
 }
 

@@ -1,8 +1,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
-// import './index.css'
+import './index.css'
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.js"
 
 import Home from './components/pages/home';
 import Login from './components/pages/login.jsx';
@@ -10,6 +11,8 @@ import Signup from './components/pages/signup.jsx';
 import CourseList from './components/Courses/courseLIst.jsx';
 import Course from './components/pages/course.jsx';
 import Profile from './components/pages/Profile.jsx'
+import Chat from './components/Chat.jsx';
+
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const router = createBrowserRouter([
@@ -41,7 +44,11 @@ const router = createBrowserRouter([
       {
         path: '/editProfile',
         element: <editProfile/>
+      },{
+        path: '/chat',
+        element: <Chat/>
       },
+      
     ],
   },
 ]);
