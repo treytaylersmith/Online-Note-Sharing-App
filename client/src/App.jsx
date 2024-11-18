@@ -1,4 +1,5 @@
 import Nav from './components/Nav';
+import Footer from './components/Footer/index';
 import { Outlet } from 'react-router-dom';
 import {
   ApolloClient,
@@ -35,6 +36,7 @@ export default function App() {
         <ApolloProvider client={client}>
         <Nav/>
         <Outlet />
+        <Footer/>
         </ApolloProvider>
         </div>
       </>
