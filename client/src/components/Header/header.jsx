@@ -1,8 +1,8 @@
 
-const Header = () =>{
-   return ( <header>
-        <h1>Project 3</h1>
-    </header>)
-}
+// const Header = () =>{
+//    return ( <header>
+//         <h1>Project 3</h1>
+//     </header>)
+// }
 
-export default Header;
+// export default Header;

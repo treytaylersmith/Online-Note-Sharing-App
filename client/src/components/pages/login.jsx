@@ -14,7 +14,7 @@ function Login(props) {
       const {data} = await login({
         variables: { email: formState.email, password: formState.password },
       });
-       console.log(data);
+      console.log(data);
       Auth.login(data.login.token);
     } catch (e) {
       console.log("Apollo Error:", e);

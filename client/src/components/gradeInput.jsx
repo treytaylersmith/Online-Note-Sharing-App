@@ -41,72 +41,72 @@ const GradeInput = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <div className="card shadow-lg">
-        <div className="card-header bg-primary text-white">
-          <h2 className="card-title mb-0">Course Grades Input</h2>
+    <div className="container mt-4 p-3">
+    <div className="card shadow-lg">
+      <div className="card-header bg-primary text-white">
+        <h2 className="card-title mb-0">Course Grades Input</h2>
+      </div>
+      <div className="card-body">
+        <div className="mb-3">
+          <label className="form-label">Midterm 1:</label>
+          <input
+            type="number"
+            className="form-control"
+            value={midterm1}
+            onChange={(e) => setMidterm1(e.target.value)}
+          />
         </div>
-        <div className="card-body">
-          <div className="mb-3">
-            <label className="form-label">Midterm 1:</label>
-            <input
-              type="number"
-              className="form-control"
-              value={midterm1}
-              onChange={(e) => setMidterm1(parseFloat(e.target.value) || 0)} 
-            />
-          </div>
 
-          <div className="mb-3">
-            <label className="form-label">Midterm 2:</label>
-            <input
-              type="number"
-              className="form-control"
-              value={midterm2}
-              onChange={(e) => setMidterm2(parseFloat(e.target.value) || 0)}  
-            />
-          </div>
-
-          <div className="mb-3">
-            <label className="form-label">Final Exam:</label>
-            <input
-              type="number"
-              className="form-control"
-              value={finalExam}
-              onChange={(e) => setFinalExam(parseFloat(e.target.value) || 0)}  ></input>
-          </div>
-
-          <h3 className="mt-4">Assignments</h3>
-          {assignments.map((grade, index) => (
-            <div className="d-flex align-items-center mb-2" key={index}>
-              <label className="form-label me-2">
-                Assignment {index + 1}:
-              </label>
-              <input
-                type="number"
-                className="form-control w-50 me-2"
-                value={grade}
-                onChange={(e) => handleAssignmentChange(index, parseFloat(e.target.value) || 0)}  
-              />
-              <button
-                className="btn btn-danger btn-sm"
-                onClick={() => removeAssignment(index)}
-              >
-                - Remove
-              </button>
-            </div>
-          ))}
-          <button className="btn btn-success mb-4" onClick={addAssignment}>
-            + Add Assignment
-          </button>
-
-          <hr />
-
-          {/* Display the average grade */}
-          <h3>Total Grade: {calculateTotal().toFixed(2)}</h3>
+        <div className="mb-3">
+          <label className="form-label">Midterm 2:</label>
+          <input
+            type="number"
+            className="form-control"
+            value={midterm2}
+            onChange={(e) => setMidterm2(e.target.value)}
+          />
         </div>
+
+        <div className="mb-3">
+          <label className="form-label">Final Exam:</label>
+          <input
+            type="number"
+            className="form-control"
+            value={finalExam}
+            onChange={(e) => setFinalExam(e.target.value)}
+          />
+        </div>
+
+        <h3 className="mt-4">Assignments</h3>
+        {assignments.map((grade, index) => (
+          <div className="d-flex align-items-center mb-2" key={index}>
+            <label className="form-label me-2">
+              Assignment {index + 1}:
+            </label>
+            <input
+              type="number"
+              className="form-control w-50 me-2"
+              value={grade}
+              onChange={(e) => handleAssignmentChange(index, e.target.value)}
+            />
+            <button
+              className="btn btn-danger btn-sm"
+              onClick={() => removeAssignment(index)}
+            >
+              - Remove
+            </button>
+          </div>
+        ))}
+        <button className="btn btn-success mb-4" onClick={addAssignment}>
+          + Add Assignment
+        </button>
+
+        <hr />
+
+        <h3>Total Grade: {calculateTotal().toFixed(2)/ 3.0}</h3>
       </div>
     </div>
+  </div>
   );
 };
 

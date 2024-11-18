@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { UPDATE_USER } from '../../utils/mutations';
 import { QUERY_USER } from '../../utils/queries';
-import ListItem from '../ListItem';
+// import ListItem from '../ListItem';
 import AuthService from '../../utils/auth';
 import Chat from '../Chat';
 import Grad from '../gradeInput';
@@ -153,8 +153,8 @@ const User = () => {
     //     )}
     //   </div>
     // </div>
-    <div >
-    <div className=" card m-5 shadow-sm p-5">
+    <div className="container">
+    <div className=" card m-3 shadow-sm p-3">
   <h2 className="card-header text-center bg-primary text-white mb-4">{user.username}</h2>
 
   <div className="mb-4">
