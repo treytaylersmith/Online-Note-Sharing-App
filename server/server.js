@@ -35,13 +35,7 @@ const startApolloServer = async () => {
     context: authMiddleware
   }));
   
-  if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../client/dist')));
-    
-    app.get('/', (req, res) => {
-      res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-    });
-  }
+ 
   
   app.post('/api/chat', async (req, res) => {
     const { messages } = req.body; // Expecting chat history
@@ -67,7 +61,13 @@ const startApolloServer = async () => {
     }
   });
 
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../client/dist')));
 
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    });
+  } 
 
   db.once('open', () => {
     app.listen(port, () => {
