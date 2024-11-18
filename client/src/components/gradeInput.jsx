@@ -8,8 +8,18 @@ const GradeInput = () => {
 
   // Calculate the total grade
   const calculateTotal = () => {
-    const assignmentTotal = assignments.reduce((acc, grade) => acc + parseFloat(grade || 0), 0);
-    return parseFloat(midterm1) + parseFloat(midterm2) + parseFloat(finalExam) + assignmentTotal;
+    const assignmentTotal = assignments.reduce(
+      (acc, grade) => acc + parseFloat(grade || 0), 
+      0
+    );
+    
+    // Total sum of midterms, final exam, and assignments
+    const totalSum = parseFloat(midterm1 || 0) + parseFloat(midterm2 || 0) + parseFloat(finalExam || 0) + assignmentTotal;
+
+    // Total number of graded items (3 = 2 midterms + 1 final exam)
+    const totalItems = 3 + assignments.length; // Use assignments.length instead of assignmentNum
+    
+    return totalSum / totalItems;  // Return the actual average
   };
 
   // Handle assignment grade changes

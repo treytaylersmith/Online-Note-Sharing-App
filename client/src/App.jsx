@@ -38,7 +38,7 @@ export default function App() {
         <Outlet />
         <Footer/>
         </ApolloProvider>
-        </div>
+       </div>
       </>
        
   )
