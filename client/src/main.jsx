@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+// import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
@@ -13,7 +13,7 @@ import Course from './components/pages/course.jsx';
 import Profile from './components/pages/Profile.jsx'
 import Chat from './components/Chat.jsx';
 
-import ReactDOM from 'react-dom/client';
+// import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const router = createBrowserRouter([
   {
@@ -41,10 +41,11 @@ const router = createBrowserRouter([
         path: '/user/:_id',
         element: <Profile/>
       },
+      // {
+      //   path: '/editProfile',
+      //   element: <editProfile/>
+      // },
       {
-        path: '/editProfile',
-        element: <editProfile/>
-      },{
         path: '/chat',
         element: <Chat/>
       },

@@ -31,7 +31,7 @@ const GradeInput = () => {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 p-3">
     <div className="card shadow-lg">
       <div className="card-header bg-primary text-white">
         <h2 className="card-title mb-0">Course Grades Input</h2>
