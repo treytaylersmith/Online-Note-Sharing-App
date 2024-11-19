@@ -6,7 +6,7 @@ const GradeInput = () => {
   const [finalExam, setFinalExam] = useState(0);
   const [assignments, setAssignments] = useState([0]); // Array to store assignment grades
 
-  // Calculate the total grade
+  // Calculate the total grade (average of all grades)
   const calculateTotal = () => {
     const assignmentTotal = assignments.reduce(
       (acc, grade) => acc + parseFloat(grade || 0), 
@@ -17,9 +17,9 @@ const GradeInput = () => {
     const totalSum = parseFloat(midterm1 || 0) + parseFloat(midterm2 || 0) + parseFloat(finalExam || 0) + assignmentTotal;
 
     // Total number of graded items (3 = 2 midterms + 1 final exam)
-    const totalItems = 3 + assignments.length; // Use assignments.length instead of assignmentNum
+    const totalItems = 3 + assignments.length; // Use assignments.length to count assignments
     
-    return totalSum / totalItems;  // Return the actual average
+    return totalSum / totalItems;  // Return the average
   };
 
   // Handle assignment grade changes
@@ -42,71 +42,71 @@ const GradeInput = () => {
 
   return (
     <div className="container mt-4 p-3">
-    <div className="card shadow-lg">
-      <div className="card-header bg-primary text-white">
-        <h2 className="card-title mb-0">Course Grades Input</h2>
-      </div>
-      <div className="card-body">
-        <div className="mb-3">
-          <label className="form-label">Midterm 1:</label>
-          <input
-            type="number"
-            className="form-control"
-            value={midterm1}
-            onChange={(e) => setMidterm1(e.target.value)}
-          />
+      <div className="card shadow-lg">
+        <div className="card-header bg-primary text-white">
+          <h2 className="card-title mb-0">Course Grades Input</h2>
         </div>
-
-        <div className="mb-3">
-          <label className="form-label">Midterm 2:</label>
-          <input
-            type="number"
-            className="form-control"
-            value={midterm2}
-            onChange={(e) => setMidterm2(e.target.value)}
-          />
-        </div>
-
-        <div className="mb-3">
-          <label className="form-label">Final Exam:</label>
-          <input
-            type="number"
-            className="form-control"
-            value={finalExam}
-            onChange={(e) => setFinalExam(e.target.value)}
-          />
-        </div>
-
-        <h3 className="mt-4">Assignments</h3>
-        {assignments.map((grade, index) => (
-          <div className="d-flex align-items-center mb-2" key={index}>
-            <label className="form-label me-2">
-              Assignment {index + 1}:
-            </label>
+        <div className="card-body">
+          <div className="mb-3">
+            <label className="form-label">Midterm 1:</label>
             <input
               type="number"
-              className="form-control w-50 me-2"
-              value={grade}
-              onChange={(e) => handleAssignmentChange(index, e.target.value)}
+              className="form-control"
+              value={midterm1}
+              onChange={(e) => setMidterm1(e.target.value)}
             />
-            <button
-              className="btn btn-danger btn-sm"
-              onClick={() => removeAssignment(index)}
-            >
-              - Remove
-            </button>
           </div>
-        ))}
-        <button className="btn btn-success mb-4" onClick={addAssignment}>
-          + Add Assignment
-        </button>
 
-        <hr />
+          <div className="mb-3">
+            <label className="form-label">Midterm 2:</label>
+            <input
+              type="number"
+              className="form-control"
+              value={midterm2}
+              onChange={(e) => setMidterm2(e.target.value)}
+            />
+          </div>
 
-        <h3>Total Grade: {calculateTotal().toFixed(2)/ 3.0}</h3>
+          <div className="mb-3">
+            <label className="form-label">Final Exam:</label>
+            <input
+              type="number"
+              className="form-control"
+              value={finalExam}
+              onChange={(e) => setFinalExam(e.target.value)}
+            />
+          </div>
+
+          <h3 className="mt-4">Assignments</h3>
+          {assignments.map((grade, index) => (
+            <div className="d-flex align-items-center mb-2" key={index}>
+              <label className="form-label me-2">
+                Assignment {index + 1}:
+              </label>
+              <input
+                type="number"
+                className="form-control w-50 me-2"
+                value={grade}
+                onChange={(e) => handleAssignmentChange(index, e.target.value)}
+              />
+              <button
+                className="btn btn-danger btn-sm"
+                onClick={() => removeAssignment(index)}
+              >
+                - Remove
+              </button>
+            </div>
+          ))}
+          <button className="btn btn-success mb-4" onClick={addAssignment}>
+            + Add Assignment
+          </button>
+
+          <hr />
+
+          <h3>Total Grade: {calculateTotal().toFixed(2)}</h3> {/* Correctly display the total average */}
+        </div>
       </div>
     </div>
-  </div>
   );
 };
 
